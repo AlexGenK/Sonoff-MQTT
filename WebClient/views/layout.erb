@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<!-- заголовок сайта -->
+		<title>POW WEB</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- подключаем Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" integrity="sha256-yMjaV542P+q1RnH6XByCPDfUFhmOafWbeLPmqKh11zo=" crossorigin="anonymous">
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment-with-locales.min.js" integrity="sha256-/ioiJhI6NkoUDkSyBru7JZUGXGQhdml6amBC3ApTf5A=" crossorigin="anonymous"></script>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+
+	    <!-- подключение библиотек для рисования графиков -->
+	    <script src="https://www.gstatic.com/charts/loader.js"></script>
+	    <!-- <script src="highcharts.js"></script> -->
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartkick/2.2.4/chartkick.min.js" integrity="sha256-F8U6ZDLlFJLObmph3Y1s809TyZ6eJ9oUf3WjYmTdHEU=" crossorigin="anonymous"></script>
+
+	</head>
+	<body>
+		<div class="container">
+
+			<!-- Наша менюшка  -->
+			<nav class="navbar navbar-default" style="background-color: #e3f2fd;">
+  				<a class="navbar-brand" href="/">Sonoff POW data registration</a>
+			</nav>
+
+			<div>
+				<!-- вывод сообщения об ошибке, если оно существует -->
+			      <%if @error && @error.length > 0 then %>
+			          <div class="alert alert-danger"><%=@error%></div>
+			      <% end %>
+			      <%= yield %>
+			</div>
+
+	</div>
+
+ </body>
+</html>
