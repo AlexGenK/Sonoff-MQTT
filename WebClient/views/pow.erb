@@ -22,52 +22,28 @@
 					    a given period
 					  </label>
 				</div>
-			<div class="container">
-			    <div class='col-md-5'>
-			        <div class="form-group">
-			            <div class='input-group date' id='startTime'>
-			                <input type='text' class="form-control" name='startTime' value='<%= params[:startTime] %>'>
-			                <span class="input-group-addon">
-			                    <span class="glyphicon glyphicon-calendar"></span>
-			                </span>
-			            </div>
-			        </div>
-			    </div>
-			    <div class='col-md-5'>
-			        <div class="form-group">
-			            <div class='input-group date' id='endTime'>
-			                <input type='text' class="form-control" name='endTime' value='<%= params[:endTime] %>'>
-			                <span class="input-group-addon">
-			                    <span class="glyphicon glyphicon-calendar"></span>
-			                </span>
-			            </div>
-			        </div>
-			    </div>
-			</div>
-			<script type="text/javascript">
-			    $(function () {
-			        $('#startTime').datetimepicker({
-			        	locale: 'ru'
-			        });
-			        $('#endTime').datetimepicker({
-			        	locale: 'ru',
-			            useCurrent: false
-			        });
-			        $("#startTime").on("dp.change", function (e) {
-			            $('#endTime').data("DateTimePicker").minDate(e.date);
-			        });
-			        $("#endTime").on("dp.change", function (e) {
-			            $('#startTime').data("DateTimePicker").maxDate(e.date);
-			        });
-					$( "#startTime" ).bind( "click", function() {
-		  				$("#optionsPeriod2").click()
-					});
-					$( "#endTime" ).bind( "click", function() {
-		  				$("#optionsPeriod2").click()
-					});
-			    });
-			</script>
-				    
+				<div class="container">
+				    <div class='col-md-5'>
+				        <div class="form-group">
+				            <div class='input-group date' id='startTime'>
+				                <input type='text' class="form-control" name='startTime' value='<%= params[:startTime] %>'>
+				                <span class="input-group-addon">
+				                    <span class="glyphicon glyphicon-calendar"></span>
+				                </span>
+				            </div>
+				        </div>
+				    </div>
+				    <div class='col-md-5'>
+				        <div class="form-group">
+				            <div class='input-group date' id='endTime'>
+				                <input type='text' class="form-control" name='endTime' value='<%= params[:endTime] %>'>
+				                <span class="input-group-addon">
+				                    <span class="glyphicon glyphicon-calendar"></span>
+				                </span>
+				            </div>
+				        </div>
+				    </div>
+				</div>				    
 			</div>
 			<button type="submit" class="btn btn-primary btn-lg btn-block">Refresh chart</button>
 		</form>
