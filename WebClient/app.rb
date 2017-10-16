@@ -31,6 +31,8 @@ def setChartHeader
 end
 
 get '/' do
+	@alarm_power = Pow.last.alarm_power
+	@alarm_on = Pow.last.alarm_on
 	params[:period] ||= 'l24h'
 	if params[:period] == 'l24h'
 		@result = Pow.where("datetime > '#{Time.now-(24*60*60)}'")
@@ -42,4 +44,9 @@ get '/' do
 	@pow_data = setDataForChart
 	@chartHeader = setChartHeader
 	erb :pow
+end
+
+post '/' do
+	Pow.update(Pow.last.id, {:alarm_on => (params['alarmOn'] == 'on'), :alarm_power => params['alarmPower']})
+	redirect '/'
 end
