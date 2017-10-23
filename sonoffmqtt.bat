@@ -1,4 +1,4 @@
 :loop
 ruby sonoffmqtt.rb
-echo '------------------------------------------- restart ------------------------------'
+echo '-----> restart <-----'
 goto loop
