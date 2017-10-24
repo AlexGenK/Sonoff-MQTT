@@ -15,14 +15,15 @@ set :database,  adapter: 'mysql2',
 class Pow < ActiveRecord::Base
   self.table_name = 'pow'
   self.default_timezone = :local
-end
 
-def data_for_chart(result)
-  pow_data = {}
-  result.each do |row|
-    pow_data[row['datetime']] = row.power
+  def self.select_data_for_chart(query)
+    pow_data = {}
+    where(query).each do |row|
+      pow_data[row['datetime']] = row.power
+    end
+    return pow_data
   end
-  return pow_data
+
 end
 
 def set_chart_header
@@ -38,12 +39,11 @@ get '/' do
   @alarm_on = Pow.last.alarm_on
   params[:period] ||= 'l24h'
   if params[:period] == 'l24h'
-    result = Pow.where("datetime > '#{Time.now - (24 * 60 * 60)}'")
+    @pow_data = Pow.select_data_for_chart("datetime > '#{Time.now - (24 * 60 * 60)}'")
   elsif params[:period] == 'given'
-    result = Pow.where("datetime > '#{convert_time(params[:startTime])}'
+    @pow_data = Pow.select_data_for_chart("datetime > '#{convert_time(params[:startTime])}'
                         AND datetime < '#{convert_time(params[:endTime])}'")
   end
-  @pow_data = data_for_chart(result)
   @chart_header = set_chart_header
   erb :pow
 end
