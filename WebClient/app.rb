@@ -17,9 +17,9 @@ class Pow < ActiveRecord::Base
   self.default_timezone = :local
 end
 
-def set_data_for_chart
+def data_for_chart(result)
   pow_data = {}
-  @result.each do |row|
+  result.each do |row|
     pow_data[row['datetime']] = row.power
   end
   return pow_data
@@ -29,18 +29,21 @@ def set_chart_header
   params[:period] == 'l24h' ? 'in the last 24 hours' : "from #{params[:startTime]} to #{params[:endTime]}"
 end
 
+def convert_time(time)
+  DateTime.strptime(time, '%d.%m.%Y %H:%M')
+end
+
 get '/' do
   @alarm_power = Pow.last.alarm_power
   @alarm_on = Pow.last.alarm_on
   params[:period] ||= 'l24h'
   if params[:period] == 'l24h'
-    @result = Pow.where("datetime > '#{Time.now - (24 * 60 * 60)}'")
+    result = Pow.where("datetime > '#{Time.now - (24 * 60 * 60)}'")
   elsif params[:period] == 'given'
-    start_time = DateTime.strptime(params[:startTime], '%d.%m.%Y %H:%M')
-    end_time = DateTime.strptime(params[:endTime], '%d.%m.%Y %H:%M')
-    @result = Pow.where("datetime > '#{start_time}' AND datetime < '#{end_time}'")
+    result = Pow.where("datetime > '#{convert_time(params[:startTime])}'
+                        AND datetime < '#{convert_time(params[:endTime])}'")
   end
-  @pow_data = set_data_for_chart
+  @pow_data = data_for_chart(result)
   @chart_header = set_chart_header
   erb :pow
 end
