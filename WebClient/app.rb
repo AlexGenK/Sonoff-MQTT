@@ -23,7 +23,6 @@ class Pow < ActiveRecord::Base
     end
     return pow_data
   end
-
 end
 
 def set_chart_header
@@ -36,7 +35,7 @@ end
 
 get '/' do
   @alarm_power = Pow.last.alarm_power
-  @alarm_on = Pow.last.alarm_on
+  @alarm_on = Pow.last.alarm_on?
   params[:period] ||= 'l24h'
   if params[:period] == 'l24h'
     @pow_data = Pow.select_data_for_chart("datetime > '#{Time.now - (24 * 60 * 60)}'")
