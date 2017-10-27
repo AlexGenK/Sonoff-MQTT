@@ -1,3 +1,4 @@
+// установки для DateTimePicker
 $(function () {
     $('#startTime').datetimepicker({
     	locale: 'ru'
