@@ -20,7 +20,7 @@ MQTT::Client.connect(ENV['MQTT_HOST'], ENV['MQTT_PORT'].to_i) do |c|
     # из последней записи
     result = client.query('SELECT alarm_power, alarm_on
                            FROM sonoff.pow
-                           ORDER BY idpow DESC LIMIT 1')
+                           ORDER BY id DESC LIMIT 1')
     client.query("INSERT INTO sonoff.pow
                 (datetime, power, factor, voltage, current, alarm_power, alarm_on)
                 VALUES

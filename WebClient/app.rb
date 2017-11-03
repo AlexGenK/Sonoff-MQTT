@@ -1,17 +1,26 @@
 require 'sinatra'
-require 'sinatra/reloader'
-require 'mysql2'
 require 'chartkick'
 require 'sinatra/activerecord'
 
-# параметры подключения к БД
-set :database,  adapter: 'mysql2',
-                host: ENV['POWDATA_HOST'],
-                port: ENV['POWDATA_PORT'],
-                username: ENV['POWDATA_USER'],
-                password: ENV['POWDATA_PASS'],
-                database: 'sonoff',
-                pool: '10'
+configure :development do
+  require 'sinatra/reloader'
+end
+
+
+  require 'mysql2'
+  # параметры подключения к БД
+  set :database,  adapter: 'mysql2',
+                  host: ENV['POWDATA_HOST'],
+                  port: ENV['POWDATA_PORT'],
+                  username: ENV['POWDATA_USER'],
+                  password: ENV['POWDATA_PASS'],
+                  database: 'sonoff',
+                  pool: '10'  
+
+configure :test do
+  require 'sqlite3'
+  set :database, "sqlite3:pow_test.db"
+end
 
 # класс - запись о параметрах энергопотребления
 class Pow < ActiveRecord::Base
@@ -38,9 +47,9 @@ def convert_time(time)
   DateTime.strptime(time, '%d.%m.%Y %H:%M')
 end
 
-# вывод основного экрана и обновление параметров гарфика потребления электроэнергии
+# вывод основного экрана и обновление параметров графика потребления электроэнергии
 get '/' do
-  @alarm_power = Pow.last.alarm_power
+  @alarm_power = Pow.last.alarm_power 
   @alarm_on = Pow.last.alarm_on?
   params[:period] ||= 'l24h'
   # вывод графика зп последние 24 часа
