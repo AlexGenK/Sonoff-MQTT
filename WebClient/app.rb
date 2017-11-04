@@ -6,9 +6,9 @@ configure :development do
   require 'sinatra/reloader'
 end
 
-
+# параметры подключения к БД для режима разработки и продакшена
+configure :production, :development do
   require 'mysql2'
-  # параметры подключения к БД
   set :database,  adapter: 'mysql2',
                   host: ENV['POWDATA_HOST'],
                   port: ENV['POWDATA_PORT'],
@@ -16,7 +16,9 @@ end
                   password: ENV['POWDATA_PASS'],
                   database: 'sonoff',
                   pool: '10'  
+end
 
+# параметры подключения к БД для режима тестирования
 configure :test do
   require 'sqlite3'
   set :database, "sqlite3:pow_test.db"

@@ -1,5 +1,7 @@
 require 'rack/test'
 require 'rspec'
+require 'factory_bot'
+require 'database_cleaner'
 
 ENV['RACK_ENV'] = 'test'
 
@@ -10,4 +12,28 @@ module RSpecMixin
   def app() Sinatra::Application end
 end
 
-RSpec.configure { |c| c.include RSpecMixin }
+RSpec.configure do |config| 
+  config.include RSpecMixin
+  config.include FactoryBot::Syntax::Methods
+
+  config.before(:suite) do
+    FactoryBot.find_definitions
+    DatabaseCleaner.clean_with(:truncation)
+  end
+
+  config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
+  end
+ 
+  config.before(:each, :js => true) do
+    DatabaseCleaner.strategy = :truncation
+  end
+ 
+  config.before(:each) do
+    DatabaseCleaner.start
+  end
+ 
+  config.after(:each) do
+    DatabaseCleaner.clean
+  end
+end
