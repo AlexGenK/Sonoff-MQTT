@@ -21,8 +21,43 @@ describe 'WebClient' do
     create_list(:telemetry, 72)
   end
 
-  it 'should allow accessing the home page' do
-    get '/'
-    expect(last_response).to be_ok
+  before(:each) do
+    visit '/'
   end
+
+  context 'when wisit by default' do
+    it 'should allow accessing the home page' do
+      expect(page.status_code).to be 200
+    end
+    it 'should show power consumption in the last 24 hours' do
+      expect(page).to have_content 'Power consumption in the last 24 hours'
+    end
+    it 'should set power alarm on' do
+      expect(page).to have_field 'alarmOn', checked: true
+    end
+     it 'should set power alarm to 100W' do
+      expect(page).to have_field 'inputAlarmPower', with: '100'
+    end
+  end
+
+  context "when switch to the 'last 24 hours' mode" do
+    it 'should show power consumption in the last 24 hours' do
+      page.choose 'optionsPeriod1'
+      page.click_button 'Refresh chart'
+      expect(page).to have_content 'Power consumption in the last 24 hours'
+    end
+  end
+
+  context "when switch to the 'a given period' mode" do
+    let(:start_time) { (Time.now-(48*60*60)).strftime('%d.%m.%Y %H:%M') }
+    let(:end_time) { Time.now.strftime('%d.%m.%Y %H:%M') }
+    it 'should show power consumption a given period' do
+      page.choose 'optionsPeriod2'
+      fill_in 'startTime', with: start_time
+      fill_in 'endTime', with: end_time
+      page.click_button 'Refresh chart'
+      expect(page).to have_content "Power consumption from #{start_time} to #{end_time}"
+    end
+  end
+
 end

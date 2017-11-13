@@ -13,4 +13,5 @@ group :test do
   gem 'sqlite3'
   gem 'factory_bot', '~> 4.0'
   gem 'database_cleaner'
+  gem 'capybara'
 end
