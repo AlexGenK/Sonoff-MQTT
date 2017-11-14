@@ -1,4 +1,4 @@
 :loop
-ruby sonoffmqtt.rb
+ruby mqttreader.rb
 echo '-----> restart <-----'
 goto loop
