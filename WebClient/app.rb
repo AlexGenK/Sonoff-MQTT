@@ -15,13 +15,13 @@ configure :production, :development do
                   username: ENV['POWDATA_USER'],
                   password: ENV['POWDATA_PASS'],
                   database: 'sonoff',
-                  pool: '10'  
+                  pool: '10'
 end
 
 # параметры подключения к БД для режима тестирования
 configure :test do
   require 'sqlite3'
-  set :database, "sqlite3:pow_test.db"
+  set :database, 'sqlite3:pow_test.db'
 end
 
 # класс - запись о параметрах энергопотребления
@@ -46,15 +46,15 @@ end
 
 # парсинг текстового представления даты/времени и создание из него объекта DateTime
 def convert_time(time)
-  DateTime.strptime(time, '%d.%m.%Y %H:%M')
+  Time.strptime(time, '%d.%m.%Y %H:%M')
 end
 
 # вывод основного экрана и обновление параметров графика потребления электроэнергии
 get '/' do
-  @alarm_power = Pow.last.alarm_power 
+  @alarm_power = Pow.last.alarm_power
   @alarm_on = Pow.last.alarm_on?
   params[:period] ||= 'l24h'
-  # вывод графика зп последние 24 часа
+  # вывод графика за последние 24 часа
   if params[:period] == 'l24h'
     @pow_data = Pow.select_data_for_chart("datetime > '#{Time.now - (24 * 60 * 60)}'")
   # или вывод графика за данный период времени

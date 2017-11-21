@@ -8,12 +8,15 @@ ENV['RACK_ENV'] = 'test'
 
 require File.expand_path '../../app.rb', __FILE__
 
+# подключение RSpec в тесты
 module RSpecMixin
   include Rack::Test::Methods
-  def app() Sinatra::Application end
+  def app
+    Sinatra::Application
+  end
 end
 
-RSpec.configure do |config| 
+RSpec.configure do |config|
   config.include RSpecMixin
   config.include FactoryBot::Syntax::Methods
   config.include Capybara::DSL
@@ -23,19 +26,19 @@ RSpec.configure do |config|
     DatabaseCleaner.clean_with(:truncation)
   end
 
-  config.before(:each) do
+  config.before do
     DatabaseCleaner.strategy = :transaction
   end
- 
-  config.before(:each, :js => true) do
+
+  config.before(:each, js: true) do
     DatabaseCleaner.strategy = :truncation
   end
- 
-  config.before(:each) do
+
+  config.before do
     DatabaseCleaner.start
   end
- 
-  config.after(:each) do
+
+  config.after do
     DatabaseCleaner.clean
   end
 end

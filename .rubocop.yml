@@ -1,0 +1,16 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - 'WebClient/db/*.rb'
+    - 'WebClient/db/migrate/*.rb'
+
+Metrics/LineLength:
+  Max: 120
+
+Style/AsciiComments:
+  Enabled: false
+
+Metrics/BlockLength:
+  Exclude:
+    - 'WebClient/spec/*.rb'
