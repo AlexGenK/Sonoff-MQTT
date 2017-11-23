@@ -23,15 +23,9 @@ RSpec.configure do |config|
 
   config.before(:suite) do
     FactoryBot.find_definitions
-    DatabaseCleaner.clean_with(:truncation)
-  end
-
-  config.before do
     DatabaseCleaner.strategy = :transaction
-  end
-
-  config.before(:each, js: true) do
-    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.clean_with(:truncation)
+    DatabaseCleaner.start
   end
 
   config.before do
@@ -39,6 +33,10 @@ RSpec.configure do |config|
   end
 
   config.after do
+    DatabaseCleaner.clean
+  end
+
+  config.after(:suite) do
     DatabaseCleaner.clean
   end
 end
