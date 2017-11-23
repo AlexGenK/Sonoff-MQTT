@@ -31,6 +31,7 @@ describe 'My WebClient' do
     end
     it 'shows power consumption in the last 24 hours' do
       expect(page).to have_content 'Power consumption in the last 24 hours'
+      expect(page).to have_content 'LineChart("chart-1", {'
     end
     it 'sets the power alarm on' do
       expect(page).to have_field 'alarmOn', checked: true
@@ -45,6 +46,7 @@ describe 'My WebClient' do
       page.choose 'optionsPeriod1'
       page.click_button 'Refresh chart'
       expect(page).to have_content 'Power consumption in the last 24 hours'
+      expect(page).to have_content 'LineChart("chart-1", {"'
     end
   end
 
@@ -58,6 +60,7 @@ describe 'My WebClient' do
       fill_in 'endTime', with: end_time
       page.click_button 'Refresh chart'
       expect(page).to have_content "Power consumption from #{start_time} to #{end_time}"
+      expect(page).to have_content 'LineChart("chart-1", {"'
     end
   end
 end

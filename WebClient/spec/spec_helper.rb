@@ -42,3 +42,4 @@ RSpec.configure do |config|
 end
 
 Capybara.app = Sinatra::Application
+Capybara.ignore_hidden_elements = false
