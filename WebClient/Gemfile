@@ -8,6 +8,10 @@ group :development, :production do
   gem 'mysql2'
 end
 
+group :development do
+  gem 'sinatra-contrib'
+end
+
 group :test do
   gem 'capybara'
   gem 'database_cleaner'

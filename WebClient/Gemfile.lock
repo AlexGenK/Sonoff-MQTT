@@ -15,6 +15,7 @@ GEM
     addressable (2.5.2)
       public_suffix (>= 2.0.2, < 4.0)
     arel (8.0.0)
+    backports (3.10.3)
     capybara (2.15.4)
       addressable
       mini_mime (>= 0.1.3)
@@ -32,6 +33,7 @@ GEM
     mini_mime (1.0.0)
     mini_portile2 (2.3.0)
     minitest (5.10.3)
+    multi_json (1.12.2)
     mustermann (1.0.1)
     mysql2 (0.4.9-x64-mingw32)
     nokogiri (1.8.1-x64-mingw32)
@@ -63,6 +65,13 @@ GEM
     sinatra-activerecord (2.0.13)
       activerecord (>= 3.2)
       sinatra (>= 1.0)
+    sinatra-contrib (2.0.0)
+      backports (>= 2.0)
+      multi_json
+      mustermann (~> 1.0)
+      rack-protection (= 2.0.0)
+      sinatra (= 2.0.0)
+      tilt (>= 1.3, < 3)
     sqlite3 (1.3.13-x64-mingw32)
     thread_safe (0.3.6)
     tilt (2.0.8)
@@ -83,7 +92,8 @@ DEPENDENCIES
   rspec
   sinatra
   sinatra-activerecord
+  sinatra-contrib
   sqlite3
 
 BUNDLED WITH
-   1.14.3
+   1.16.0
