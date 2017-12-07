@@ -16,6 +16,7 @@ module RSpecMixin
   end
 end
 
+# конфигурация DatabaseCleaner
 RSpec.configure do |config|
   config.include RSpecMixin
   config.include FactoryBot::Syntax::Methods
@@ -41,5 +42,23 @@ RSpec.configure do |config|
   end
 end
 
+# конфигурация Capybara
 Capybara.app = Sinatra::Application
 Capybara.ignore_hidden_elements = false
+
+# конфигурация FactoryBot и определение фабрики
+FactoryBot.define do
+  sequence :time do |n|
+    Time.now - (n * 3600)
+  end
+
+  factory :telemetry, class: Pow do
+    factor { (100.0 / (120 + rand(20))).round(2) }
+    datetime { generate(:time) }
+    voltage { 210 + rand(30) }
+    current { (10.0 / (15 + rand(15))).round(3) }
+    power { voltage * current * factor }
+    alarm_power '100'
+    alarm_on true
+  end
+end
