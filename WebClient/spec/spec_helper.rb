@@ -16,6 +16,13 @@ module RSpecMixin
   end
 end
 
+RSpec::Matchers.define :have_filled_chart_with_title do |tytle|
+  match do |page|
+    expect(page).to have_content title
+    expect(page).to have_content 'LineChart("chart-1", {'
+  end
+end
+
 # конфигурация DatabaseCleaner
 RSpec.configure do |config|
   config.include RSpecMixin
