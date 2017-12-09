@@ -22,11 +22,11 @@ MQTT::Client.connect(ENV['MQTT_HOST'], ENV['MQTT_PORT'].to_i) do |c|
                            FROM sonoff.pow
                            ORDER BY id DESC LIMIT 1')
     client.query("INSERT INTO sonoff.pow
-                (datetime, power, factor, voltage, current, alarm_power, alarm_on)
+                (datetime, power, factor, voltage, current, period, alarm_power, alarm_on)
                 VALUES
                 ('#{parsed_hash['Time']}', #{parsed_hash['Power']},
                 #{parsed_hash['Factor']}, #{parsed_hash['Voltage']},
-                #{parsed_hash['Current']}, #{result.first['alarm_power']},
-                #{result.first['alarm_on']})")
+                #{parsed_hash['Current']}, #{parsed_hash['Period']},
+                #{result.first['alarm_power']}, #{result.first['alarm_on']})")
   end
 end

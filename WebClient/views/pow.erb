@@ -1,10 +1,11 @@
 <!-- График потребления электроэнергии -->
 <div class="panel panel-default">	
-	<div class="panel-heading">Power consumption <%= @chart_header %></div>
+	<div class="panel-heading">Power consumption <%= @chart_header %> (Time / Wh)</div>
 	<div class="panel-body">
 		<div class='row'>
 			<div class='col'>
-				<%= line_chart @pow_data, library: {curveType: "none", pointSize: 0, theme: "maximized", vAxis: {title: "W"}, hAxis: {title: "Time"}} %>
+				<%= line_chart @pow_data, library: {curveType: "none", pointSize: 0, theme: "maximized", 
+									  				plotOptions: {spline: {marker: {enabled: false}, }, }, } %>
 			</div>
 		</div>
 		<br>
@@ -60,7 +61,7 @@
 		  <div class="form-group">
 		    <div class="input-group">
 		      <input type="number" class="form-control" id="inputAlarmPower" name="alarmPower" value='<%= @alarm_power %>'>
-		      <div class="input-group-addon">W</div>
+		      <div class="input-group-addon">Wh</div>
 		    </div>
 		  </div>
 		  <button type="submit" class="btn btn-danger">Set alarm</button>

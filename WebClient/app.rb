@@ -33,7 +33,7 @@ class Pow < ActiveRecord::Base
   def self.select_data_for_chart(query)
     pow_data = {}
     where(query).each do |row|
-      pow_data[row['datetime']] = row.power
+      pow_data[row['datetime']] = row.period
     end
     return pow_data
   end
