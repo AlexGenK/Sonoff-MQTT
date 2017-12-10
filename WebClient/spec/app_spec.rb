@@ -14,7 +14,7 @@ describe 'My WebClient' do
       expect(page.status_code).to be 200
     end
     it 'shows power consumption in the last 24 hours' do
-      expect(page).to have_filled_chart_with_title 'Power consumption in the last 24 hours'
+      expect(page).to have_filled_chart_with_title 'Power consumption in the last 24 hours (Time / Wh)'
     end
     it 'sets the power alarm on' do
       expect(page).to have_field 'alarmOn', checked: true
@@ -28,7 +28,7 @@ describe 'My WebClient' do
     it 'shows power consumption in the last 24 hours' do
       page.choose 'optionsPeriod1'
       page.click_button 'Refresh chart'
-      expect(page).to have_filled_chart_with_title 'Power consumption in the last 24 hours'
+      expect(page).to have_filled_chart_with_title 'Power consumption in the last 24 hours (Time / Wh)'
     end
   end
 
@@ -41,7 +41,7 @@ describe 'My WebClient' do
       fill_in 'startTime', with: start_time
       fill_in 'endTime', with: end_time
       page.click_button 'Refresh chart'
-      expect(page).to have_filled_chart_with_title "Power consumption from #{start_time} to #{end_time}"
+      expect(page).to have_filled_chart_with_title "Power consumption from #{start_time} to #{end_time} (Time / Wh)"
     end
   end
 end

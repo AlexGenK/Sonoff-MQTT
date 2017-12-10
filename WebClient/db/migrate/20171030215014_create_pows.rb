@@ -8,6 +8,7 @@ class CreatePows < ActiveRecord::Migration[5.1]
       c.decimal  :current
       c.integer  :alarm_power
       c.boolean  :alarm_on
+      c.integer  :period
     end
   end
 end

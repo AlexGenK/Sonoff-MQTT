@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(version: 20171030215014) do
     t.decimal "current"
     t.integer "alarm_power"
     t.boolean "alarm_on"
+    t.integer "period"
   end
 
 end

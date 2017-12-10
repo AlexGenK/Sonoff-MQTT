@@ -67,5 +67,6 @@ FactoryBot.define do
     power { voltage * current * factor }
     alarm_power '100'
     alarm_on true
+    period { power*rand(8..12)/10 }
   end
 end
