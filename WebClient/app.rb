@@ -27,7 +27,6 @@ end
 # класс - запись о параметрах энергопотребления
 class Pow < ActiveRecord::Base
   self.table_name = 'pow'
-  self.default_timezone = :local
 
   # выборка данных и их представление в пригодном для графика виде
   def self.select_data_for_chart(query)
