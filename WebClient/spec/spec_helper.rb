@@ -16,7 +16,7 @@ module RSpecMixin
   end
 end
 
-RSpec::Matchers.define :have_filled_chart_with_title do |tytle|
+RSpec::Matchers.define :have_filled_chart_with_title do |title|
   match do |page|
     expect(page).to have_content title
     expect(page).to have_content 'LineChart("chart-1", {'
@@ -67,6 +67,6 @@ FactoryBot.define do
     power { voltage * current * factor }
     alarm_power '100'
     alarm_on true
-    period { power*rand(8..12)/10 }
+    period { power * rand(8..12) / 10 }
   end
 end
