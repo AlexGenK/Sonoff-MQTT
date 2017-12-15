@@ -23,21 +23,23 @@
 					    a given period
 					  </label>
 				</div>
-				<div class="container">
-				    <div class='col-sm-5'>
+				<div class="row">
+				    <div class='col-sm-6'>
 				        <div class="form-group">
+				        	<label for="startTimeField" class="control-label">From:</label>
 				            <div class='input-group date' id='startTime'>
-				                <input type='text' class="form-control" name='startTime' value='<%= params[:startTime] %>'>
+				                <input type='text' class="form-control" id="startTimeField" name='startTime' value='<%= params[:startTime] %>'>
 				                <span class="input-group-addon">
 				                    <span class="glyphicon glyphicon-calendar"></span>
 				                </span>
 				            </div>
 				        </div>
 				    </div>
-				    <div class='col-sm-5'>
+				    <div class='col-sm-6'>
 				        <div class="form-group">
+				        	<label for="endTimeField" class="control-label">To:</label>
 				            <div class='input-group date' id='endTime'>
-				                <input type='text' class="form-control" name='endTime' value='<%= params[:endTime] %>'>
+				                <input type='text' class="form-control" id='endTimeField' name='endTime' value='<%= params[:endTime] %>'>
 				                <span class="input-group-addon">
 				                    <span class="glyphicon glyphicon-calendar"></span>
 				                </span>
@@ -67,4 +69,4 @@
 		  <button type="submit" class="btn btn-danger">Set alarm</button>
 		</form>
 	</div>
-</div>		
+</div>	
