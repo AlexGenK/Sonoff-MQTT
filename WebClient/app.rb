@@ -10,10 +10,10 @@ end
 configure :production, :development do
   require 'mysql2'
   set :database,  adapter: 'mysql2',
-                  host: ENV['POWDATA_HOST'],
-                  port: ENV['POWDATA_PORT'],
-                  username: ENV['POWDATA_USER'],
-                  password: ENV['POWDATA_PASS'],
+                  host: ENV['POW_DATA_HOST'],
+                  port: ENV['POW_DATA_PORT'],
+                  username: ENV['POW_DATA_USER'],
+                  password: ENV['POW_DATA_PASS'],
                   database: 'sonoff',
                   pool: '10'
 end

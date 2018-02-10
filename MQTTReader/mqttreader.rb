@@ -3,15 +3,15 @@ require 'json'
 require 'mysql2'
 
 # чтение параметров подкючения БД
-client = Mysql2::Client.new(host: ENV['POWDATA_HOST'],
-                            username: ENV['POWDATA_USER'],
-                            password: ENV['POWDATA_PASS'],
-                            port: ENV['POWDATA_PORT'])
+client = Mysql2::Client.new(host: ENV['POW_DATA_HOST'],
+                            username: ENV['POW_DATA_USER'],
+                            password: ENV['POW_DATA_PASS'],
+                            port: ENV['POW_DATA_PORT'])
 
 # устанавливаем соединение с MQTT брокером
-MQTT::Client.connect(ENV['MQTT_HOST'], ENV['MQTT_PORT'].to_i) do |c|
+MQTT::Client.connect(ENV['POW_MQTT_HOST'], ENV['POW_MQTT_PORT'].to_i) do |c|
   # читаем сообщения от MQTT брокера
-  c.get(ENV['MQTT_TOP']) do |topic, message|
+  c.get(ENV['POW_MQTT_TOPIC']) do |topic, message|
     puts '------------------'
     puts "#{topic}: #{message}"
     parsed_hash = JSON.parse(message)
