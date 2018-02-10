@@ -1,8 +1,11 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    jwt (2.1.0)
     mqtt (0.5.0)
     mysql2 (0.4.9-x64-mingw32)
+    nexmo (4.8.0)
+      jwt
 
 PLATFORMS
   x64-mingw32
@@ -10,6 +13,7 @@ PLATFORMS
 DEPENDENCIES
   mqtt
   mysql2
+  nexmo
 
 BUNDLED WITH
    1.16.0
