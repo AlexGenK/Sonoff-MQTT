@@ -31,11 +31,15 @@ class Pow < ActiveRecord::Base
   # выборка данных и их представление в пригодном для графика виде
   def self.select_data_for_chart(query)
     pow_data = {}
+    alarm_data = {}
     where(query).each do |row|
       pow_data[row['datetime']] = row.period
+      alarm_data[row['datetime']] = row.alarm_power
     end
-    return pow_data
+    alarm_color = Pow.last.alarm_on? ? '#ff6666' : '#bfbfbf'
+    return [{name: 'Power', data: pow_data}, {name: 'Alarm lewel', data: alarm_data, color: alarm_color}]
   end
+
 end
 
 # установка заголовка таблицы
@@ -55,10 +59,10 @@ get '/' do
   params[:period] ||= 'l24h'
   # вывод графика за последние 24 часа
   if params[:period] == 'l24h'
-    @pow_data = Pow.select_data_for_chart("datetime > '#{Time.now - (24 * 60 * 60)}'")
+    @chart_data = Pow.select_data_for_chart("datetime > '#{Time.now - (24 * 60 * 60)}'")
   # или вывод графика за данный период времени
   elsif params[:period] == 'given'
-    @pow_data = Pow.select_data_for_chart("datetime > '#{convert_time(params[:startTime])}'
+    @chart_data = Pow.select_data_for_chart("datetime > '#{convert_time(params[:startTime])}'
                         AND datetime < '#{convert_time(params[:endTime])}'")
   end
   @chart_header = set_chart_header

@@ -4,8 +4,13 @@
 	<div class="panel-body">
 		<div class='row'>
 			<div class='col'>
-				<%= line_chart @pow_data, library: {curveType: "none", pointSize: 0, theme: "maximized", 
-									  				plotOptions: {spline: {marker: {enabled: false}, }, }, } %>
+				<%= line_chart @chart_data, library: {curveType: "none", pointSize: 0, theme: "maximized", 
+									  				plotOptions: {spline: {marker: {enabled: false}}},
+									  				 legend: {align: 'right',
+														      verticalAlign: 'top',
+														      x: -10,
+														      y: 0,
+														      floating: true}} %>
 			</div>
 		</div>
 		<br>

@@ -15,7 +15,7 @@ class Sender
 		response=@client.send_message(from: @send_from, to: @send_to, text: message)
 		if response['messages'][0]['status'] == '0'
 		  return {error_level: 0,
-		  		  message: "Sent message #{response['messages'][0]['message-id']}"}
+		  		  message: "Send message #{response['messages'][0]['message-id']}"}
 		else
 		  return {error_level: 1,
 		  		  message: "Error: #{response['messages'][0]['error-text']}"}
