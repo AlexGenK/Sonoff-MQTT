@@ -35,14 +35,14 @@ MQTT::Client.connect(ENV['POW_MQTT_HOST'], ENV['POW_MQTT_PORT'].to_i) do |c|
     client.query("INSERT INTO sonoff.pow
                 (datetime, power, factor, voltage, current, period, alarm_power, alarm_on, elmeter_id)
                 VALUES
-                ('#{parsed_hash['Time']}', #{parsed_hash['Power']},
-                #{parsed_hash['Factor']}, #{parsed_hash['Voltage']},
-                #{parsed_hash['Current']}, #{parsed_hash['Period']},
+                ('#{parsed_hash['Time']}', #{parsed_hash['ENERGY']['Power']},
+                #{parsed_hash['ENERGY']['Factor']}, #{parsed_hash['ENERGY']['Voltage']},
+                #{parsed_hash['ENERGY']['Current']}, #{parsed_hash['ENERGY']['Period']},
                 #{result.first['alarm_power']}, #{result.first['alarm_on']},
                 '#{get_elmeter_id(topic)}')")
 
     # отправка сообщения пользователю о превышении граничной мощности
-    if (result.first['alarm_on'] != 0) && (parsed_hash['Period'] > result.first['alarm_power'])
+    if (result.first['alarm_on'] != 0) && (parsed_hash['ENERGY']['Period'] > result.first['alarm_power'])
       sender_result = sender.send_message
       puts sender_result[:message].red
     end
