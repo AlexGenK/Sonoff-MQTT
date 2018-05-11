@@ -17,7 +17,7 @@ sender = Sender.new(send_to: ENV['POW_SMS_TEL'])
 MQTT::Client.connect(ENV['POW_MQTT_HOST'], ENV['POW_MQTT_PORT'].to_i) do |c|
   # читаем сообщения от MQTT брокера
   c.get(ENV['POW_MQTT_TOPIC']) do |topic, message|
-    puts '------------------'
+    puts '------MySQL-------'
     puts "#{topic}: #{message}"
 
     # получение текущих параметров электросети
