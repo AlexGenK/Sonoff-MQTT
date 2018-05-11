@@ -68,13 +68,13 @@ get '/' do
   elsif params[:period] == 'given'
     @start_time = convert_time(params[:startTime])
     @end_time = convert_time(params[:endTime])
+    # обработка ошибок
     if @start_time && @end_time
       @chart_data = Pow.select_data_for_chart("datetime > '#{@start_time}'
                                               AND datetime < '#{@end_time}'")
     else
       $error = "Invalid start or end time format"
-      params[:period] = 'l24h'
-      redirect '/'
+      @chart_data = nil
     end
   end
   @chart_header = set_chart_header
