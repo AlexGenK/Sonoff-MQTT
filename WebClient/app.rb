@@ -49,7 +49,11 @@ end
 
 # парсинг текстового представления даты/времени и создание из него объекта DateTime
 def convert_time(time)
-  Time.strptime(time, '%d.%m.%Y %H:%M')
+    begin
+      Time.strptime(time, '%d.%m.%Y %H:%M')
+    rescue ArgumentError
+      false
+    end
 end
 
 # вывод основного экрана и обновление параметров графика потребления электроэнергии
@@ -62,8 +66,16 @@ get '/' do
     @chart_data = Pow.select_data_for_chart("datetime > '#{Time.now - (24 * 60 * 60)}'")
   # или вывод графика за данный период времени
   elsif params[:period] == 'given'
-    @chart_data = Pow.select_data_for_chart("datetime > '#{convert_time(params[:startTime])}'
-                        AND datetime < '#{convert_time(params[:endTime])}'")
+    @start_time = convert_time(params[:startTime])
+    @end_time = convert_time(params[:endTime])
+    if @start_time && @end_time
+      @chart_data = Pow.select_data_for_chart("datetime > '#{@start_time}'
+                                              AND datetime < '#{@end_time}'")
+    else
+      $error = "Invalid start or end time format"
+      params[:period] = 'l24h'
+      redirect '/'
+    end
   end
   @chart_header = set_chart_header
   erb :pow
