@@ -19,7 +19,7 @@ end
 RSpec::Matchers.define :have_filled_chart_with_title do |title|
   match do |page|
     expect(page).to have_content title
-    expect(page).to have_content 'LineChart("chart-1", {'
+    expect(page).to have_content 'LineChart("chart-1", [{'
   end
 end
 
