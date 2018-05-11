@@ -2,6 +2,8 @@ require 'sinatra'
 require 'chartkick'
 require 'sinatra/activerecord'
 
+enable :sessions
+
 configure :development do
   require 'sinatra/reloader'
 end
@@ -73,7 +75,7 @@ get '/' do
       @chart_data = Pow.select_data_for_chart("datetime > '#{@start_time}'
                                               AND datetime < '#{@end_time}'")
     else
-      $error = "Invalid start or end time format"
+      session[:error] = "Invalid start or end time format"
       @chart_data = nil
     end
   end
